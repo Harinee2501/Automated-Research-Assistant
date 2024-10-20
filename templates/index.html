@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Research Assistant</title>
+</head>
+<body>
+    <h1>Automated Research Assistant</h1>
+    <form action="/search" method="POST">
+        <label for="query">Enter your topic:</label>
+        <input type="text" id="query" name="query" required>
+        <label for="length">Summary Length:</label>
+        <select id="length" name="length">
+            <option value="short">Short</option>
+            <option value="long">Long</option>
+        </select>
+        <botton type="submit">Search</botton>
+    </form>
+    <div id="results"></div>
+</body>
+</html>
