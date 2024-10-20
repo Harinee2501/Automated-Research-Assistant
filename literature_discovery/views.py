@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, Blueprint
 import requests
 import xml.etree.ElementTree as ET
+from .summarizer import summarize_text  # Import the summarize_text function
 
 # Initialize the Blueprint for literature discovery
 literature_discovery_bp = Blueprint('literature_discovery', __name__)
@@ -9,6 +10,7 @@ literature_discovery_bp = Blueprint('literature_discovery', __name__)
 def literature():
     papers = []
     query = None
+
     if request.method == 'POST':
         query = request.form['query']
         url = f'http://export.arxiv.org/api/query?search_query={query}&start=0&max_results=5'
@@ -24,10 +26,13 @@ def literature():
                 published = entry.find('{http://www.w3.org/2005/Atom}published').text
                 link = entry.find('{http://www.w3.org/2005/Atom}id').text
 
+                # Summarize the paper's summary
+                summarized_summary = summarize_text(summary)
+
                 papers.append({
                     'title': title,
                     'author': author,
-                    'summary': summary,
+                    'summary': summarized_summary,
                     'published': published,
                     'link': link
                 })
@@ -44,3 +49,4 @@ app.register_blueprint(literature_discovery_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
