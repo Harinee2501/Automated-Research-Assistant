@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literature Discovery</title>
+</head>
+<body>
+    <h1>Literature Discovery</h1>
+    <form method="post">
+        <input type="text" name="query" placeholder="Enter your search query" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if papers %}
+        <h2>Search Results for: {{ query }}</h2>
+        <ul>
+        {% for paper in papers %}
+            <li>
+                <strong><a href="{{ paper.link }}">{{ paper.title }}</a></strong><br>
+                <em>Authors: {{ paper.author }}</em><br>
+                <p>{{ paper.summary }}</p>
+                <small>Published on: {{ paper.published }}</small>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+
+
+
