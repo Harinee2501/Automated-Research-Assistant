@@ -7,16 +7,32 @@
 </head>
 <body>
     <h1>Automated Research Assistant</h1>
-    <form action="/search" method="POST">
-        <label for="query">Enter your topic:</label>
-        <input type="text" id="query" name="query" required>
-        <label for="length">Summary Length:</label>
-        <select id="length" name="length">
-            <option value="short">Short</option>
-            <option value="long">Long</option>
+    <form id="search-form">
+        <input type="text" name="query" placeholder="Enter your query" required>
+        <select name="length">
+            <option value="short">Short Summary</option>
+            <option value="detailed">Detailed Summary</option>
         </select>
         <botton type="submit">Search</botton>
     </form>
     <div id="results"></div>
+    <div id="download-link" style="display:none;">
+        <a href="/download">Download PDF</a>
+    </div>
+    <script>
+        document.getElementById('search-form').onsubmit=async function(event){
+            event.preventDefault();
+            const formData=new FormData(this);
+            const response=await fetch('/search',{
+                method:'POST',
+                body: formData
+            });
+            const data=await response.json();
+            document.getElementById('results').innerHTML=`<h2>Results:</h2>
+                <p><strong>Wikipedis Summary:</strong><br>${data.wikipedia_summary}<p>
+                <p><strong>Webpage Content:</strong><br>${data.webpage_content}</p>`;
+            document.getElementId('download-link').style.display='block';
+        };
+    </script>
 </body>
 </html>
