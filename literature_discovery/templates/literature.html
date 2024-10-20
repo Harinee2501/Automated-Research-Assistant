@@ -19,13 +19,18 @@
                 <strong><a href="{{ paper.link }}">{{ paper.title }}</a></strong><br>
                 <em>Authors: {{ paper.author }}</em><br>
                 <p>{{ paper.summary }}</p>
-                <small>Published on: {{ paper.published }}</small>
+                <small>Published on: {{ paper.published }}</small><br>
+                <strong>Citation:</strong> {{ paper.citation }}
             </li>
         {% endfor %}
         </ul>
     {% endif %}
 </body>
 </html>
+
+
+
+
 
 
 
